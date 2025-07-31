@@ -37,7 +37,7 @@ PROMPT+="%F{${dir_bg}}%F{${dir_icon}}   %F{${dir_text}}%~ %f%k"
 # '$' aaaah dollar...
 PROMPT+=" $ "
 
-# GIT : PREFIX | CURRENT_BRANCH | DIRTY/CLEAN | SUFFIX
+# GIT : PREFIX | DIRTY/CLEAN | SUFFIX
 RPROMPT+='$(git_prompt_info)'
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%F{${git_bg}}%F{${git_icon}}%K{${git_bg}}  %F{${git_text}}"
@@ -45,7 +45,7 @@ ZSH_THEME_GIT_PROMPT_PREFIX="%F{${git_bg}}%F{${git_icon}}%K{${git_bg}}  %F
 # precmd() is a hook called when need reprint PROMPT
 function precmd() {
 	local in_git_repo=$(git_repo_name)
-    [[ -z $in_git_repo ]] && return
+	[[ -z $in_git_repo ]] && return
 
 	local git_added_count=$(git diff --numstat 2>/dev/null | awk '{added+=$1} END{print added}') 
 	local git_deleted_count=$(git diff --numstat 2>/dev/null | awk '{deleted+=$2} END{print deleted}')
@@ -54,11 +54,11 @@ function precmd() {
 		ZSH_THEME_GIT_PROMPT_DIRTY=" %F{${git_diff_bg}}%K{${git_diff_bg}}%F{${git_added}}  ${git_added_count} %F{${git_deleted}} ${git_deleted_count}"
 		ZSH_THEME_GIT_PROMPT_SUFFIX=" %F{${git_deleted}}%K{${git_deleted}} "
 	else
-        ZSH_THEME_GIT_PROMPT_DIRTY=""
-        if [[ -z "$git_status" ]]; then
-        	ZSH_THEME_GIT_PROMPT_SUFFIX=" %F{${git_added}}%K{${git_added}} "
-        else
-            ZSH_THEME_GIT_PROMPT_SUFFIX=" %F{${git_deleted}}%K{${git_deleted}} "
-        fi
-    fi
+		ZSH_THEME_GIT_PROMPT_DIRTY=""
+		if [[ -z "$git_status" ]]; then
+			ZSH_THEME_GIT_PROMPT_SUFFIX=" %F{${git_added}}%K{${git_added}} "
+		else
+			ZSH_THEME_GIT_PROMPT_SUFFIX=" %F{${git_deleted}}%K{${git_deleted}} "
+		fi
+	fi
 }
