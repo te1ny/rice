@@ -99,7 +99,6 @@ get_left_capsule() {
     echo "$result"
 }
 
-# NEED TEST
 get_right_capsule() {
     local content=$1
     local bg_color=$2
